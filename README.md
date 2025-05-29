@@ -24,7 +24,7 @@ O projeto é desenvolvido em C++, utilizando conceitos de Programação Orientad
 ## Como Configurar o Ambiente de Desenvolvimento
 
 1. Clone o repositorio
-'git clone' [Texto do link](https://github.com/nevzJao/termo-remake)
+git clone [https://github.com/nevzJao/termo-remake](url)
 cd termo
 
 3. 
