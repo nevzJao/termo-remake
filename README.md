@@ -3,7 +3,7 @@
 
 ## 🎯 Visão Geral
 
-O ***Termo*** é um jogo de adivinhação de palavras executado no terminal, inspirado no popular jogo Termo. O objetivo é acertar uma palavra secreta que pode ter até 10 letras, em até **10 tentativas**.
+O ***Termo*** é um jogo de adivinhação de palavras executado no terminal. O objetivo é acertar uma palavra secreta de 5 letras, em até **10 tentativas**.
 
 Após cada tentativa, o jogador recebe um feedback visual:
 - Letras na posição correta ficam *verdes*.
