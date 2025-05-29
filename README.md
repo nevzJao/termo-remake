@@ -58,5 +58,4 @@ bash```./termo```
 ## 🗒️ Observações
 
 - O projeto será organizado na pasta `src/`, que contém os arquivos `.cpp` e `.h`;
-- A documentação e quaisquer arquivos de apoio estão na pasta `docs/`;
 - As palavras usadas no jogo estão armazenadas em um arquivo externo, como `palavras.txt`.
