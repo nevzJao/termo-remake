@@ -69,4 +69,4 @@ Execute o jogo:
 ## 🗒️ Observações
 
 - O projeto está organizado na pasta `src/`, que contém os arquivos `.cpp` e `.h`;
-- As palavras usadas no jogo estão armazenadas em no arquivo externo `palavras.txt`.
+- As palavras usadas no jogo estão armazenadas no arquivo externo `palavras.txt`.
