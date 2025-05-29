@@ -1,5 +1,5 @@
 # Termo - Jogo de Adivinhação de Palavras
-**Grupo: Isadora Drumond, Júlia Luísa, João Marcos Nevez, Rodrigo Anastácio e Victor Altafin**
+**Grupo: Isadora Drumond, Júlia Luíza, João Marcos Nevez, Rodrigo Anastácio e Victor Altafin**
 
 ## 🎯 Visão Geral
 
