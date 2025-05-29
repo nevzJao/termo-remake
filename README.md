@@ -37,22 +37,27 @@ bash```
 make```
 
 Ou, compilando manualmente:
-bash```g++ src/*.cpp -o termo```
+bash```
+g++ src/*.cpp -o termo```
 
 Execute o jogo:
-bash```./termo```
+bash```
+./termo```
 
 
 ## 🤝 Como Contribuir
 
 1. Faça um fork do projeto;
 2. Crie uma branch para sua funcionalidade ou correção:
-   bash```git checkout -b minha-feature```
-3. Faça seus commits com mensagens claras:
-   bash```git commit -m "Adiciona nova funcionalidade"```
-4. Envie para seu repositório remoto:
-   bash```git push origin minha-feature```
-5. Abra um Pull Request explicando suas alterações para que possamos revisar e integrar ao projeto.
+   bash```
+   git checkout -b minha-feature```
+4. Faça seus commits com mensagens claras:
+   bash```
+   git commit -m "Adiciona nova funcionalidade"```
+6. Envie para seu repositório remoto:
+   bash```
+   git push origin minha-feature```
+8. Abra um Pull Request explicando suas alterações para que possamos revisar e integrar ao projeto.
 
 
 ## 🗒️ Observações
