@@ -1,0 +1,15 @@
+# Ignorar arquivos objeto
+*.o
+
+# Ignorar arquivos temporários do sistema
+*~
+
+# Ignorar arquivos de backup do nano
+*.swp
+
+# Ignorar arquivos binários
+*.exe
+*.out
+
+# Ignorar pasta build (caso use)
+build/
