@@ -40,6 +40,7 @@ void Keyboard::updateKeyColor(const QString &key, const QString &color) {
     if (buttons.contains(key)) {
         QString style = QString("background-color: %1").arg(color);
         buttons[key]->setStyleSheet(style);
+        buttons[key]->setEnabled(false);
     }
 }
 
