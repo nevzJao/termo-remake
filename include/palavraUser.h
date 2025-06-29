@@ -1,25 +1,20 @@
-#ifndef PALAVRAUSER_H
-#define PALAVRAUSER_H
+#ifndef PALAVRA_USER_H
+#define PALAVRA_USER_H
 
+#include "Color.h"  // Inclua o novo arquivo
 #include <string>
 #include <vector>
 
-enum class FeedbackCor {
-    VERDE,
-    AMARELO,
-    CINZA
-};
-
 class PalavraUser {
-public:
-    PalavraUser(const std::string& tentativa);
-
-    bool ehValida() const;
-    std::vector<FeedbackCor> compararCom(const std::string& palavraSecreta) const;
-    std::string getPalavra() const;
-
 private:
     std::string palavra;
+    std::vector<Color> cores;
+
+public:
+    PalavraUser(const std::string& tentativa, const std::string& palavraSecreta);
+    std::string getPalavra() const;
+    Color getColor(size_t index) const;
+    size_t size() const;
 };
 
-#endif // PALAVRAUSER_H
+#endif // PALAVRA_USER_H
