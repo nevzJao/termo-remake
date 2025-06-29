@@ -1,4 +1,4 @@
-#include "../include/Keyboard.h"
+#include "../include/keyboard.h"
 #include <iostream>
 #include <cctype>
 
@@ -40,6 +40,9 @@ void Keyboard::printKeyboard() const {
                     break;
                 case Color::GRAY:
                     std::cout << "\033[47m";
+                    break;
+                case Color::BLACK:
+                    std::cout << "\033[40m";
                     break;
             }
             std::cout << " " << c << " \033[0m";

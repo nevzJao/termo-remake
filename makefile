@@ -1,13 +1,25 @@
 # Compilador e flags
 CXX = g++
-CXXFLAGS = -Iinclude -std=c++11 -Wall
+CXXFLAGS = -std=c++11 -Wall -Isrc -Iinclude
 
-# Arquivos fonte e objetos
-SRC = main/main.cpp crc/PalavraSecreta.cpp
-OBJ = $(SRC:.cpp=.o)
+# Diretórios
+SRC_DIR = src
+MAIN_DIR = main
+BUILD_DIR = build
 
-# Nome do executável
+# Arquivos fonte
+SRC = $(wildcard $(SRC_DIR)/*.cpp)
+MAIN = $(MAIN_DIR)/main.cpp
+
+# Objetos
+OBJ = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRC)) \
+      $(patsubst $(MAIN_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(MAIN))
+
+# Executável na raiz
 EXEC = termo
+
+# Cria a pasta build se não existir
+$(shell mkdir -p $(BUILD_DIR))
 
 # Regra principal
 all: $(EXEC)
@@ -16,11 +28,16 @@ all: $(EXEC)
 $(EXEC): $(OBJ)
 	$(CXX) $(OBJ) -o $(EXEC)
 
-# Como compilar arquivos .cpp em .o
-%.o: %.cpp
+# Como compilar arquivos .cpp da pasta src
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Como compilar o main.cpp
+$(BUILD_DIR)/%.o: $(MAIN_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Limpar arquivos gerados
 clean:
-	rm -f $(OBJ) $(EXEC)
+	rm -rf $(BUILD_DIR) $(EXEC)
 
+.PHONY: all clean

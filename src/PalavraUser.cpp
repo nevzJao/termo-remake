@@ -3,10 +3,11 @@
 
 PalavraUser::PalavraUser(const std::string& tentativa, const std::string& palavraSecreta) {
     palavra = tentativa;
-    cores.resize(palavra.size(), Color::BLACK);
+    cores.resize(palavra.size(), Color::BLACK);  // Changed from GRAY to BLACK
 
     std::vector<bool> usada(palavraSecreta.size(), false);
 
+    // First pass: mark correct letters (GREEN)
     for (size_t i = 0; i < palavra.size(); i++) {
         if (i < palavraSecreta.size() && palavra[i] == palavraSecreta[i]) {
             cores[i] = Color::GREEN;
@@ -14,6 +15,7 @@ PalavraUser::PalavraUser(const std::string& tentativa, const std::string& palavr
         }
     }
 
+    // Second pass: mark present but wrong position letters (YELLOW)
     for (size_t i = 0; i < palavra.size(); i++) {
         if (cores[i] == Color::GREEN) continue;
         

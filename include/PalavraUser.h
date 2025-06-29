@@ -1,7 +1,7 @@
 #ifndef PALAVRA_USER_H
 #define PALAVRA_USER_H
 
-#include "Color.h"
+#include "Color.h"  // Inclua o novo arquivo
 #include <string>
 #include <vector>
 

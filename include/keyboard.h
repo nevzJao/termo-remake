@@ -1,14 +1,9 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
+#include "Color.h"  // Inclua o novo arquivo
 #include <map>
 #include <string>
-
-enum class Color {
-    GREEN,
-    YELLOW,
-    GRAY
-};
 
 class Keyboard {
 private:
@@ -23,4 +18,3 @@ public:
 };
 
 #endif // KEYBOARD_H
-

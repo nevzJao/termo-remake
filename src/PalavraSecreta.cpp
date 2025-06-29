@@ -40,25 +40,43 @@ std::string PalavraSecreta::getPalavra() const {
 
 std::string PalavraSecreta::removerAcentos(const std::string& str) {
     std::string resultado = str;
-    std::map<char, char> mapa = {
-        {'Á','A'}, {'À','A'}, {'Â','A'}, {'Ã','A'},
-        {'É','E'}, {'Ê','E'},
-        {'Í','I'},
-        {'Ó','O'}, {'Ô','O'}, {'Õ','O'},
-        {'Ú','U'},
-        {'Ç','C'},
-        {'á','a'}, {'à','a'}, {'â','a'}, {'ã','a'},
-        {'é','e'}, {'ê','e'},
-        {'í','i'},
-        {'ó','o'}, {'ô','o'}, {'õ','o'},
-        {'ú','u'},
-        {'ç','c'}
+    
+    // Create a mapping of accented characters to their non-accented equivalents
+    static const std::map<std::string, char> mapa = {
+        {"Á", 'A'}, {"À", 'A'}, {"Â", 'A'}, {"Ã", 'A'},
+        {"É", 'E'}, {"Ê", 'E'},
+        {"Í", 'I'},
+        {"Ó", 'O'}, {"Ô", 'O'}, {"Õ", 'O'},
+        {"Ú", 'U'},
+        {"Ç", 'C'},
+        {"á", 'a'}, {"à", 'a'}, {"â", 'a'}, {"ã", 'a'},
+        {"é", 'e'}, {"ê", 'e'},
+        {"í", 'i'},
+        {"ó", 'o'}, {"ô", 'o'}, {"õ", 'o'},
+        {"ú", 'u'},
+        {"ç", 'c'}
     };
 
-    for (auto& c : resultado) {
-        if (mapa.find(c) != mapa.end()) {
-            c = mapa[c];
+    // Iterate through the string and replace accented characters
+    for (size_t i = 0; i < resultado.length(); ) {
+        // Check for multi-byte sequences (assuming UTF-8)
+        if ((resultado[i] & 0x80) != 0) {  // If high bit is set (UTF-8 multi-byte)
+            std::string key;
+            // Get the full multi-byte character (2 bytes for these accented chars)
+            if (i + 1 < resultado.length()) {
+                key = resultado.substr(i, 2);
+                auto it = mapa.find(key);
+                if (it != mapa.end()) {
+                    resultado[i] = it->second;
+                    resultado.erase(i + 1, 1);  // Remove the second byte
+                }
+            }
+            i++;
+        } else {
+            // Regular ASCII character
+            i++;
         }
     }
+    
     return resultado;
 }

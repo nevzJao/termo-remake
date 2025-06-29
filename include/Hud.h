@@ -1,33 +1,24 @@
- #ifndef HUD_H
+#ifndef HUD_H
 #define HUD_H
 
+#include "PalavraUser.h"
 #include "keyboard.h"
 #include <vector>
 #include <string>
 
 class HUD {
 private:
-    std::vector<std::string> tentativas;
+    std::vector<PalavraUser> tentativas;
     std::string palavraCorreta;
     Keyboard keyboard;
 
 public:
     HUD();
-
-    // Adiciona uma tentativa ao HUD
-    void adicionarTentativa(const std::string& tentativa);
-
-    // Define a palavra correta (para quando o jogador perde)
+    void adicionarTentativa(const std::string& tentativa, const std::string& palavraSecreta);
     void setPalavraCorreta(const std::string& palavra);
-
-    // Atualiza as cores do teclado com base nas tentativas
     void atualizarTeclado(const std::string& tentativa, const std::string& palavraSecreta);
-
-    // Limpa o terminal e imprime todo o HUD
     void imprimirHUD() const;
-
-    // Limpa o terminal
     void limparTerminal() const;
 };
 
-#endif // HUD_H 
+#endif // HUD_H
