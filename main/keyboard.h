@@ -1,30 +1,26 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
-#include <QWidget>
-#include <QPushButton>
-#include <QGridLayout>
-#include <QMap>
+#include <map>
+#include <string>
 
-class Keyboard : public QWidget {
-    Q_OBJECT
-public:
-    explicit Keyboard(QWidget *parent = nullptr);
+enum class Color {
+    GREEN,
+    YELLOW,
+    GRAY
+};
 
-    
-    void updateKeyColor(const QString &key, const QString &color);
-
-    
-    void resetKeyboard();
-
-signals:
-    void keyPressed(const QString &key);
-
+class Keyboard {
 private:
-    QGridLayout *layout;
-    QMap<QString, QPushButton*> buttons;  
+    std::map<char, Color> keyColors;
 
-    void setupKeys();
+public:
+    Keyboard();
+    void setKeyColor(char letter, Color color);
+    Color getKeyColor(char letter) const;
+    void printKeyboard() const;
+    void resetKeyboard();
 };
 
 #endif // KEYBOARD_H
+
