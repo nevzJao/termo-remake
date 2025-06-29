@@ -1,4 +1,4 @@
-#include "keyboard.h"
+#include "../include/keyboard.h"
 
 Keyboard::Keyboard(QWidget *parent) : QWidget(parent) {
     layout = new QGridLayout(this);
