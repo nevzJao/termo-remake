@@ -1,32 +1,68 @@
-#ifndef HUB_H
-#define HUB_H
+#include "../include/Hud.h"
+#include <iostream>
+#include <cstdlib>
 
-#include <QWidget>
-#include <QVBoxLayout>
-#include <QLabel>
-#include "keyboard.h"
-#include "PalavraSecreta.h"
+HUD::HUD() : palavraCorreta("") {}
 
-class Hub : public QWidget {
-    Q_OBJECT
+void HUD::adicionarTentativa(const std::string& tentativa) {
+    tentativas.push_back(tentativa);
+}
 
-public:
-    explicit Hub(QWidget *parent = nullptr);
+void HUD::setPalavraCorreta(const std::string& palavra) {
+    palavraCorreta = palavra;
+}
 
-private slots:
-    void handleKeyPressed(const QString &key);
+void HUD::atualizarTeclado(const std::string& tentativa, const std::string& palavraSecreta) {
+    for (size_t i = 0; i < tentativa.size(); ++i) {
+        char letra = tentativa[i];
+        
+        if (letra == palavraSecreta[i]) {
+            keyboard.setKeyColor(letra, Color::GREEN);
+        } else if (palavraSecreta.find(letra) != std::string::npos) {
+            if (keyboard.getKeyColor(letra) != Color::GREEN) {
+                keyboard.setKeyColor(letra, Color::YELLOW);
+            }
+        } else {
+            if (keyboard.getKeyColor(letra) != Color::GREEN && 
+                keyboard.getKeyColor(letra) != Color::YELLOW) {
+                keyboard.setKeyColor(letra, Color::GRAY);
+            }
+        }
+    }
+}
 
-private:
-    PalavraSecreta jogo;
-    Keyboard *keyboard;
-    QVBoxLayout *mainLayout;
-    QLabel *display;
+void HUD::imprimirHUD() const {
+    limparTerminal();
 
-    QString currentGuess;
-    int attempts;
+    // Cabeçalho simplificado
+    std::cout << "+------------------+" << std::endl;
+    std::cout << "|    | Termo  |    |" << std::endl;
+    std::cout << "+------------------+" << std::endl;
 
-    void checkGuess();
-    void resetGame();
-};
+    // Tentativas
+    for (size_t i = 0; i < 6; ++i) {
+        if (i < tentativas.size()) {
+            std::cout << (i+1) << "ª tentativa: " << tentativas[i] << "\n";
+        } else {
+            std::cout << (i+1) << "ª tentativa: \n";
+        }
+    }
 
-#endif
+    // Mensagem final (se houver palavra correta definida)
+    if (!palavraCorreta.empty()) {
+        std::cout << "\nNão foi dessa vez 😉\n";
+        std::cout << "A palavra era " << palavraCorreta << "\n\n";
+    }
+
+    // Teclado
+    std::cout << "\n";  // Espaço antes do teclado
+    keyboard.printKeyboard();
+}
+
+void HUD::limparTerminal() const {
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
