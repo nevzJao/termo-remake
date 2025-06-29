@@ -1,42 +1,40 @@
 #include "../include/PalavraUser.h"
 #include <algorithm>
-#include <map>
 
-PalavraUser::PalavraUser(const std::string& tentativa) {
+PalavraUser::PalavraUser(const std::string& tentativa, const std::string& palavraSecreta) {
     palavra = tentativa;
-    std::transform(palavra.begin(), palavra.end(), palavra.begin(), ::toupper);
-}
+    cores.resize(palavra.size(), Color::BLACK);
 
-bool PalavraUser::ehValida() const {
-    return palavra.size() == 5;
+    std::vector<bool> usada(palavraSecreta.size(), false);
+
+    for (size_t i = 0; i < palavra.size(); i++) {
+        if (i < palavraSecreta.size() && palavra[i] == palavraSecreta[i]) {
+            cores[i] = Color::GREEN;
+            usada[i] = true;
+        }
+    }
+
+    for (size_t i = 0; i < palavra.size(); i++) {
+        if (cores[i] == Color::GREEN) continue;
+        
+        for (size_t j = 0; j < palavraSecreta.size(); j++) {
+            if (!usada[j] && palavra[i] == palavraSecreta[j]) {
+                cores[i] = Color::YELLOW;
+                usada[j] = true;
+                break;
+            }
+        }
+    }
 }
 
 std::string PalavraUser::getPalavra() const {
     return palavra;
 }
 
-std::vector<FeedbackCor> PalavraUser::compararCom(const std::string& palavraSecreta) const {
-    std::vector<FeedbackCor> resultado(5, FeedbackCor::CINZA);
-    std::string secreta = palavraSecreta;
-    std::vector<bool> usada(5, false);
+Color PalavraUser::getColor(size_t index) const {
+    return cores.at(index); // Usando at() para verificação de limites
+}
 
-    for (int i = 0; i < 5; ++i) {
-        if (palavra[i] == secreta[i]) {
-            resultado[i] = FeedbackCor::VERDE;
-            usada[i] = true;
-        }
-    }
-
-    for (int i = 0; i < 5; ++i) {
-        if (resultado[i] == FeedbackCor::VERDE) continue;
-        for (int j = 0; j < 5; ++j) {
-            if (!usada[j] && palavra[i] == secreta[j]) {
-                resultado[i] = FeedbackCor::AMARELO;
-                usada[j] = true;
-                break;
-            }
-        }
-    }
-
-    return resultado;
+size_t PalavraUser::size() const {
+    return palavra.size();
 }
