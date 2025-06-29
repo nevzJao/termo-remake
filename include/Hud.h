@@ -1,13 +1,14 @@
- #ifndef HUD_H
+#ifndef HUD_H
 #define HUD_H
 
 #include "keyboard.h"
+#include "palavraUser.h"
 #include <vector>
 #include <string>
 
 class HUD {
 private:
-    std::vector<std::string> tentativas;
+    std::vector<std::pair<std::string, std::vector<FeedbackCor>>> tentativas;
     std::string palavraCorreta;
     Keyboard keyboard;
 
