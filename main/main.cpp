@@ -31,7 +31,7 @@ std::string processarPalavra(std::string palavra) {
 
 int main() {
     // Inicializa o jogo
-    PalavraSecreta palavraSecreta("/data/palavras.txt");
+    PalavraSecreta palavraSecreta("./data/palavras.txt");
     HUD hud;
     std::string palavra = palavraSecreta.getPalavra();
     std::string tentativa;
