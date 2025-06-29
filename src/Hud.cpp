@@ -4,8 +4,8 @@
 
 HUD::HUD() : palavraCorreta("") {}
 
-void HUD::adicionarTentativa(const std::string& tentativa) {
-    tentativas.push_back(tentativa);
+void HUD::adicionarTentativa(const std::string& tentativa, const std::vector<FeedbackCor>& feedback) {
+    tentativas.push_back({tentativa, feedback});
 }
 
 void HUD::setPalavraCorreta(const std::string& palavra) {
@@ -41,22 +41,24 @@ void HUD::imprimirHUD() const {
 
     // Tentativas
     for (size_t i = 0; i < 6; ++i) {
-        if (i < tentativas.size()) {
-            std::cout << (i+1) << "ª tentativa: " << tentativas[i] << "\n";
-        } else {
-            std::cout << (i+1) << "ª tentativa: \n";
+    std::cout << (i+1) << "ª tentativa: ";
+    if (i < tentativas.size()) {
+        const auto& [palavra, cores] = tentativas[i];
+        for (size_t j = 0; j < palavra.size(); ++j) {
+            char letra = palavra[j];
+            switch (cores[j]) {
+                case FeedbackCor::VERDE:
+                    std::cout << "\033[1;32m" << letra << "\033[0m"; break; // verde
+                case FeedbackCor::AMARELO:
+                    std::cout << "\033[1;33m" << letra << "\033[0m"; break; // amarelo
+                case FeedbackCor::CINZA:
+                    std::cout << "\033[1;90m" << letra << "\033[0m"; break; // cinza
+            }
         }
+        std::cout << "\n";
+    } else {
+        std::cout << "\n";
     }
-
-    // Mensagem final (se houver palavra correta definida)
-    if (!palavraCorreta.empty()) {
-        std::cout << "\nNão foi dessa vez 😉\n";
-        std::cout << "A palavra era " << palavraCorreta << "\n\n";
-    }
-
-    // Teclado
-    std::cout << "\n";  // Espaço antes do teclado
-    keyboard.printKeyboard();
 }
 
 void HUD::limparTerminal() const {
