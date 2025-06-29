@@ -1,52 +1,59 @@
-#include "../include/keyboard.h"
+#include "../include/Keyboard.h"
+#include <iostream>
+#include <cctype>
 
-Keyboard::Keyboard(QWidget *parent) : QWidget(parent) {
-    layout = new QGridLayout(this);
-    setupKeys();
-}
-
-void Keyboard::setupKeys() {
-    QString keys = "QWERTYUIOPASDFGHJKLZXCVBNM";
-    int row = 0;
-    int col = 0;
-
-    for (int i = 0; i < keys.length(); i++) {
-        QPushButton *btn = new QPushButton(QString(keys[i]), this);
-        btn->setFixedSize(40, 40);
-        layout->addWidget(btn, row, col);
-        buttons.insert(QString(keys[i]), btn);
-
-    
-        if (row == 0 && col == 9) {
-            row++;
-            col = 0;
-        }
-        else if (row == 1 && col == 8) {
-            row++;
-            col = 1;
-        }
-        else {
-            col++;
-        }
-
-        
-        connect(btn, &QPushButton::clicked, [this, btn]() {
-            emit keyPressed(btn->text());
-        });
+Keyboard::Keyboard() {
+    for (char c = 'A'; c <= 'Z'; c++) {
+        keyColors[c] = Color::GRAY;
     }
 }
 
-void Keyboard::updateKeyColor(const QString &key, const QString &color) {
-    if (buttons.contains(key)) {
-        QString style = QString("background-color: %1").arg(color);
-        buttons[key]->setStyleSheet(style);
-        buttons[key]->setEnabled(false);
+void Keyboard::setKeyColor(char letter, Color color) {
+    letter = toupper(letter);
+    if (letter >= 'A' && letter <= 'Z') {
+        keyColors[letter] = color;
     }
+}
+
+Color Keyboard::getKeyColor(char letter) const {
+    letter = toupper(letter);
+    if (keyColors.find(letter) != keyColors.end()) {
+        return keyColors.at(letter);
+    }
+    return Color::GRAY;
+}
+
+void Keyboard::printKeyboard() const {
+    std::string firstRow = "QWERTYUIOP";
+    std::string secondRow = "ASDFGHJKL";
+    std::string thirdRow = "ZXCVBNM";
+
+    auto printRow = [this](const std::string& row) {
+        for (char c : row) {
+            Color color = getKeyColor(c);
+            switch (color) {
+                case Color::GREEN:
+                    std::cout << "\033[42m";
+                    break;
+                case Color::YELLOW:
+                    std::cout << "\033[43m";
+                    break;
+                case Color::GRAY:
+                    std::cout << "\033[47m";
+                    break;
+            }
+            std::cout << " " << c << " \033[0m";
+        }
+        std::cout << std::endl;
+    };
+
+    printRow(firstRow);
+    printRow(secondRow);
+    printRow(thirdRow);
 }
 
 void Keyboard::resetKeyboard() {
-    for (auto btn : buttons) {
-        btn->setStyleSheet("");
-        btn->setEnabled(true);
+    for (auto& pair : keyColors) {
+        pair.second = Color::GRAY;
     }
 }
