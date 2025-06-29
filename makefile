@@ -3,7 +3,7 @@ CXX = g++
 CXXFLAGS = -Iinclude -std=c++11 -Wall
 
 # Arquivos fonte e objetos
-SRC = main/main.cpp crc/PalavraSecreta.cpp
+SRC = main/main.cpp crc/PalavraSecreta.cpp crc/Hud.cpp crc/keyboard.cpp crc/PalavraUser.cpp
 OBJ = $(SRC:.cpp=.o)
 
 # Nome do executável
@@ -23,4 +23,3 @@ $(EXEC): $(OBJ)
 # Limpar arquivos gerados
 clean:
 	rm -f $(OBJ) $(EXEC)
-
